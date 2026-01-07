@@ -4,6 +4,18 @@
   "description": "VSCode Copilot聊天扩展，支持中国国产大模型（通义千问Qwen、百川Baichuan、智谱ChatGLM等）",
   "version": "0.1.0",
   "publisher": "fucheng830",
+  "author": {
+    "name": "fucheng830"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fucheng830/vscode-copilot-chat-cn"
+  },
+  "bugs": {
+    "url": "https://github.com/fucheng830/vscode-copilot-chat-cn/issues"
+  },
+  "homepage": "https://github.com/fucheng830/vscode-copilot-chat-cn#readme",
   "engines": {
     "vscode": "^1.85.0"
   },
