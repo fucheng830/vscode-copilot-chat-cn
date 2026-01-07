@@ -1,0 +1,136 @@
+{
+  "name": "vscode-copilot-chat-cn",
+  "displayName": "Copilot Chat CN - 国产模型支持",
+  "description": "VSCode Copilot聊天扩展，支持中国国产大模型（通义千问Qwen、百川Baichuan、智谱ChatGLM等）",
+  "version": "0.1.0",
+  "publisher": "fucheng830",
+  "author": {
+    "name": "fucheng830"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fucheng830/vscode-copilot-chat-cn"
+  },
+  "bugs": {
+    "url": "https://github.com/fucheng830/vscode-copilot-chat-cn/issues"
+  },
+  "homepage": "https://github.com/fucheng830/vscode-copilot-chat-cn#readme",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Chat"
+  ],
+  "keywords": [
+    "copilot",
+    "chat",
+    "ai",
+    "qwen",
+    "baichuan",
+    "chatglm",
+    "通义千问",
+    "百川",
+    "智谱",
+    "国产模型"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "vscode-copilot-chat-cn.cn-model",
+        "fullName": "国产模型助手",
+        "name": "cn",
+        "description": "使用国产AI大模型为您提供代码辅助和对话支持",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "explain",
+            "description": "解释选中的代码"
+          },
+          {
+            "name": "refactor",
+            "description": "重构选中的代码"
+          },
+          {
+            "name": "fix",
+            "description": "修复代码问题"
+          },
+          {
+            "name": "test",
+            "description": "为代码生成测试用例"
+          },
+          {
+            "name": "docs",
+            "description": "为代码生成文档"
+          }
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "Copilot Chat CN",
+      "properties": {
+        "copilotChatCN.model": {
+          "type": "string",
+          "enum": [
+            "qwen",
+            "baichuan",
+            "chatglm"
+          ],
+          "default": "qwen",
+          "description": "选择要使用的国产AI模型"
+        },
+        "copilotChatCN.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API密钥（请从对应的模型服务商获取）"
+        },
+        "copilotChatCN.apiEndpoint": {
+          "type": "string",
+          "default": "",
+          "description": "API端点地址（可选，如果为空则使用默认端点）"
+        },
+        "copilotChatCN.modelName": {
+          "type": "string",
+          "default": "",
+          "description": "具体的模型名称（如 qwen-max, baichuan2-13b-chat, chatglm3-6b 等）"
+        },
+        "copilotChatCN.temperature": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 2,
+          "description": "模型温度参数，控制回复的随机性（0-2）"
+        },
+        "copilotChatCN.maxTokens": {
+          "type": "number",
+          "default": 2048,
+          "minimum": 1,
+          "maximum": 100000,
+          "description": "最大token数量"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.x",
+    "@typescript-eslint/parser": "^6.x",
+    "eslint": "^8.x",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
