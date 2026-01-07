@@ -10,8 +10,6 @@ interface ModelConfig {
     maxTokens: number;
 }
 
-
-
 export class ModelProvider {
     private getConfig(): ModelConfig {
         const config = vscode.workspace.getConfiguration('copilotChatCN');
@@ -98,6 +96,9 @@ export class ModelProvider {
 
     private async callQwenAPI(config: ModelConfig, prompt: string, token: vscode.CancellationToken): Promise<string> {
         // Qwen uses a different API structure for DashScope
+        const abortController = new AbortController();
+        token.onCancellationRequested(() => abortController.abort());
+
         const response = await axios.post(
             config.apiEndpoint,
             {
@@ -121,9 +122,7 @@ export class ModelProvider {
                     'Authorization': `Bearer ${config.apiKey}`,
                     'Content-Type': 'application/json'
                 },
-                cancelToken: new axios.CancelToken((c) => {
-                    token.onCancellationRequested(() => c());
-                })
+                signal: abortController.signal
             }
         );
 
@@ -138,6 +137,9 @@ export class ModelProvider {
 
     private async callBaichuanAPI(config: ModelConfig, prompt: string, token: vscode.CancellationToken): Promise<string> {
         // Baichuan uses OpenAI-compatible API
+        const abortController = new AbortController();
+        token.onCancellationRequested(() => abortController.abort());
+
         const response = await axios.post(
             config.apiEndpoint,
             {
@@ -156,9 +158,7 @@ export class ModelProvider {
                     'Authorization': `Bearer ${config.apiKey}`,
                     'Content-Type': 'application/json'
                 },
-                cancelToken: new axios.CancelToken((c) => {
-                    token.onCancellationRequested(() => c());
-                })
+                signal: abortController.signal
             }
         );
 
@@ -171,6 +171,9 @@ export class ModelProvider {
 
     private async callChatGLMAPI(config: ModelConfig, prompt: string, token: vscode.CancellationToken): Promise<string> {
         // ChatGLM uses OpenAI-compatible API
+        const abortController = new AbortController();
+        token.onCancellationRequested(() => abortController.abort());
+
         const response = await axios.post(
             config.apiEndpoint,
             {
@@ -189,9 +192,7 @@ export class ModelProvider {
                     'Authorization': `Bearer ${config.apiKey}`,
                     'Content-Type': 'application/json'
                 },
-                cancelToken: new axios.CancelToken((c) => {
-                    token.onCancellationRequested(() => c());
-                })
+                signal: abortController.signal
             }
         );
 
